@@ -23,6 +23,7 @@ login = wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='q15031991
 login.click()
 I_accept = wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='q-225181968']/div/div[2]/div/div/div[1]/div[1]/button/div[2]/div[2]/div")))
 I_accept.click()
+gmail_login = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "//*[@id='q-225181968']/div/div[2]/div/div/div[1]/div[1]/button/div[2]/div[2]/div")))
 
 time.sleep(2)  # Add a small delay to ensure the window handles are updated
 window_handles = driver.window_handles
