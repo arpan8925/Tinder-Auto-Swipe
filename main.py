@@ -4,11 +4,20 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from time import sleep
+import random
 
 # Configure Chrome options
 options = uc.ChromeOptions()
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
+
+def like():
+    driver.find_element(By.TAG_NAME, "body").send_keys(Keys.ARROW_RIGHT)
+    sleep(2)
+
+def dislike():
+    driver.find_element(By.TAG_NAME, "body").send_keys(Keys.ARROW_LEFT)
+    sleep(2)
 
 driver = uc.Chrome(options=options)
 
@@ -53,10 +62,12 @@ allow_location.click()
 notification = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div/div/div/div/div[3]/button[2]/div[2]/div[2]/div")))
 notification.click()
 
-# Send the right arrow key 10 times
-for _ in range(10):
-    driver.find_element(By.TAG_NAME, "body").send_keys(Keys.ARROW_RIGHT)
-    sleep(1)  # Add a short delay between key presses
+
+functions = [like, dislike]
+
+for i in range(100, 0, -1):
+    print(f"Call {101 - i}: ", end="")
+    random.choice(functions)()
 
 # Keep the script running to keep the browser open
 try:
