@@ -1,17 +1,18 @@
 import undetected_chromedriver as uc
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
-import time
+from time import sleep
 
 # Configure Chrome options
 options = uc.ChromeOptions()
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
-options.binary_location = r"C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe"
+
 driver = uc.Chrome(options=options)
+
+options.add_experimental_option("prefs", {"profile.default_content_setting_values.geolocation": 1})
 
 driver.get("https://tinder.com/app/recs")
 
@@ -49,8 +50,13 @@ driver.switch_to.window(driver.window_handles[0])
 allow_location = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='q-225181968']/div/div/div/div/div[3]/button[1]/div[2]/div[2]/div")))
 allow_location.click()
 
-like = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='q1503199108']/div/div[1]/div/main/div[1]/div/div/div/div[1]/div[1]/div/div[3]/div/div[4]/button/span/span")))
-like.click()
+notification = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div/div/div/div/div[3]/button[2]/div[2]/div[2]/div")))
+notification.click()
+
+# Send the right arrow key 10 times
+for _ in range(10):
+    driver.find_element(By.TAG_NAME, "body").send_keys(Keys.ARROW_RIGHT)
+    sleep(1)  # Add a short delay between key presses
 
 # Keep the script running to keep the browser open
 try:
